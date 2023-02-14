@@ -8,3 +8,6 @@ Basic project buildup to be able to quickly setup and initiate a new Kivy based 
 * kivy file with Widget and Layout deifinitions
 * python file to lauch app, import necessary modules
 
+
+=== contact
+- szillerke@gmail.com
