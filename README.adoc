@@ -1,2 +1,10 @@
 == _kivybasics
 Assist repo for Kivy based App development. Snippets, examples, boilerplate.
+
+=== contains
+Basic project buildup to be able to quickly setup and initiate a new Kivy based application.
+
+* basic project logic
+* kivy file with Widget and Layout deifinitions
+* python file to lauch app, import necessary modules
+
