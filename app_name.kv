@@ -1,0 +1,74 @@
+#: kivy 2.1.0
+## ------------------------------------------------------------------
+## - Font settings in general. All used fonts to be defined here    -
+## ------------------------------------------------------------------
+#:set fn_title "./fonts/Ubuntu-B.ttf"
+#:set fs_title 20
+
+#:set fn_subtitle "./fonts/Ubuntu-B.ttf"
+#:set fs_subtitle 16
+
+#:set fn_subsubtitle "./fonts/Ubuntu-B.ttf"
+#:set fs_subsubtitle 14
+
+#:set fn_button "./fonts/Ubuntu-BI.ttf"
+#:set fs_button 14
+
+#:set fn_text "./fonts/Ubuntu-C.ttf"
+#:set fs_text 12
+
+#:set fn_data "./fonts/Ubuntu-LI.ttf"
+#:set fs_data 12
+
+## ------------------------------------------------------------------
+## - Filelinks to be used globally:                                 -
+## ------------------------------------------------------------------
+
+##:set background_image "./images/City_01WP.jpg"
+#:set background_image "./images/RenderArt-StoneWallSTRWP.jpg"
+#:set defaultQR "./qrcodes/_QR_default.png"
+#:set phimage_link "./icons/caution.png"
+
+## ----------------------------------------------------------------------------------------------
+## transitions imported for screenchanges:
+## ----------------------------------------------------------------------------------------------
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+## -----------------------------------------------------------------------------
+#:import CardTransition kivy.uix.screenmanager.CardTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import SwapTransition kivy.uix.screenmanager.SwapTransition
+#:import WipeTransition kivy.uix.screenmanager.WipeTransition
+
+## ----------------------------------------------------------------------------------------------
+## Root Widget definition: ScreenManager                            ScreenManager       START   -
+## ----------------------------------------------------------------------------------------------
+AppObjScreenManager:
+    id: ThisIsYourROOTWidget
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: background_image
+    ScreenText:
+        id: screen_text
+    ScreenDisp:
+        id: screen_disp
+
+
+<AppObjScreenManager@ScreenManager>:
+    ## transition: NoTransition()
+    transition: CardTransition(direction="right", duration=0.05)
+    ## transition: FadeTransition(duration=0.1)
+    ## transition: FallOutTransition(duration=0.05)    # opposites v
+    ## transition: RiseInTransition(duration=0.08)     # opposites ^
+    ## transition: SlideTransition()
+    ## transition: SwapTransition(duration=.5)
+    ## transition: WipeTransition()
+
+## ----------------------------------------------------------------------------------------------
+## Root Widget definition: ScreenManager                            ScreenManager       ENDED   -
+## ----------------------------------------------------------------------------------------------
+
