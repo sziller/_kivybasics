@@ -1,6 +1,13 @@
 == _kivybasics
 Assist repo for Kivy based App development. Snippets, examples, boilerplate.
 
+=== use
+Copy code, and use it as tamplate.
+
+=== function
+App now shows a mutiscreen window with a navbar on top.
+You can add multiple screens.
+
 === contains
 Basic project buildup to be able to quickly setup and initiate a new Kivy based application.
 
