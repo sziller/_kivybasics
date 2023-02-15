@@ -24,7 +24,9 @@
 ## - Filelinks to be used globally:                                 -
 ## ------------------------------------------------------------------
 
-#:set default_image "./images/MinimalArt-CitySTRWP.jpg"
+#:set default_image1 "./images/MinimalArt-CitySTRWP.jpg"
+#:set default_image2 "./images/RenderArt-PaperWallSTRWP.jpg"
+#:set default_image3 "./images/RenderArt-TunelSTRWP.jpg"
 #:set background_image "./images/RenderArt-StoneWallSTRWP.jpg"
 #:set defaultQR "./qrcodes/_QR_default.png"
 #:set phimage_link "./icons/caution.png"
@@ -56,6 +58,10 @@ AppObjScreenManager:
         id: screen_a
     ScreenB:
         id: screen_b
+    ScreenC:
+        id: screen_c
+    ScreenD:
+        id: screen_d
 
 
 <AppObjScreenManager@ScreenManager>:
@@ -110,6 +116,44 @@ AppObjScreenManager:
             text_ribbon: "by Sziller"
             image_source: phimage_link
 
+<ScreenC@Screen>:
+    name: "screen_C"
+    InScreenWindow:
+        TitleLine:
+            id: screen_C_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "Screen C"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaC:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareaC
+        Ribbon:
+            id: ribbon_C
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenD@Screen>:
+    name: "screen_D"
+    InScreenWindow:
+        TitleLine:
+            id: screen_D_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "Screen D"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaD:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareaD
+        Ribbon:
+            id: ribbon_D
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
 
 <InScreenWindow@BoxLayout>:
     orientation: "vertical"
@@ -141,32 +185,38 @@ AppObjScreenManager:
         spacing: 20
         orientation: "vertical"
         BoxLayout:
-            size_hint: 1, 0.15
+            size_hint: 1, 1
             orientation: "horizontal"
-            Button:
-                id: browse_qr_prev
-                disabled: True
-                add: -1
-                size_hint: 0.05, 1
-                pos_hint: {"center_y": 0.5}
-                text: "<"
-                on_release: root.on_buttonclick_qr_browse(self)
-            LabelInfo:
-                id: labelinfo
-                size_hint: 0.9, 1
-                text: "Text in box..."
-            Button:
-                id: browse_qr_next
-                disabled: True
-                add: 1
-                size_hint: 0.05, 1
-                pos_hint: {"center_y": 0.5}
-                text: ">"
-                on_release: root.on_buttonclick_qr_browse(self)
-        AsyncImage:
-            id: qr_plot_layout
-            size_hint: 1, 0.7
-            source: default_image
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image1
+
+<OpAreaC@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image2
+
+<OpAreaD@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image3
 
 <NavBar@BoxLayout>:
     id: navbar
@@ -182,6 +232,16 @@ AppObjScreenManager:
         id: button_nav_B
         target: "screen_B"
         text: "screen_B"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_C
+        target: "screen_C"
+        text: "screen_C"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_D
+        target: "screen_D"
+        text: "screen_D"
         on_release: root.on_release_navbar(self)
 
 <Ribbon@BoxLayout>:

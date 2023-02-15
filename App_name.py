@@ -15,12 +15,22 @@ class AppObjScreenManager(ScreenManager):
                 "seq": 0,
                 'inst': 'button_nav_A',
                 'down': ['button_nav_A'],
-                'normal': ["button_nav_B"]},
+                'normal': ["button_nav_B", "button_nav_C", "button_nav_D"]},
             "screen_B":  {
                 "seq": 1,
                 'inst': 'button_nav_B',
                 'down': ['button_nav_B'],
-                'normal': ["button_nav_A"]}
+                'normal': ["button_nav_A", "button_nav_C", "button_nav_D"]},
+            "screen_C": {
+                "seq": 2,
+                'inst': 'button_nav_C',
+                'down': ['button_nav_C'],
+                'normal': ["button_nav_A", 'button_nav_B', 'button_nav_D']},
+            "screen_D":  {
+                "seq": 3,
+                'inst': 'button_nav_D',
+                'down': ['button_nav_D'],
+                'normal': ["button_nav_A", 'button_nav_B', 'button_nav_C']}
             }
 
 class NavBar(BoxLayout):
@@ -95,16 +105,24 @@ class AppObj(App):
 if __name__ == "__main__":
     from kivy.lang import Builder  # to freely pick kivy files
 
-    display_settings = {0: {'fullscreen': False, 'run': Window.maximize},
-                        1: {'fullscreen': False, 'size': (400, 800)},
-                        2: {'fullscreen': False, 'size': (600, 400)},
-                        3: {'fullscreen': False, 'size': (1000, 500)}}
+    # use presets to
+    display_settings = {0: {'fullscreen': False, 'run': Window.maximize},   # cover screen with titlebar accessible
+                        1: {'fullscreen': True, 'run': Window.maximize},    # Fullscreen mode
+                        2: {'fullscreen': False, 'size': (480, 640)},       # Portrait  Raspberry Display
+                        3: {'fullscreen': False, 'size': (640, 480)},       # Landscape Raspberry Display
+                        4: {'fullscreen': False, 'size': (480, 960)},       # Portrait  Cellphone
+                        5: {'fullscreen': False, 'size': (960, 480)},       # Landscape Cellphone
+                        6: {'fullscreen': False, 'size': (800, 800)},       # Qubic layout
+                        }
 
-    style_code = 1
+    style_code = 6
 
     Window.fullscreen = display_settings[style_code]['fullscreen']
     if 'size' in display_settings[style_code].keys(): Window.size = display_settings[style_code]['size']
     if 'run' in display_settings[style_code].keys(): display_settings[style_code]['run']()
+
+    Window.top = 40
+    Window.left = 40
 
     try:
         content = Builder.load_file(str(sys.argv[1]))
