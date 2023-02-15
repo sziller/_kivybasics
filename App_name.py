@@ -3,6 +3,62 @@ import sys
 
 from kivy.app import App
 from kivy.core.window import Window
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
+
+
+class AppObjScreenManager(ScreenManager):
+    def __init__(self, **kwargs):
+        super(AppObjScreenManager, self).__init__(**kwargs)
+        self.statedict = {
+            "screen_A": {
+                "seq": 0,
+                'inst': 'button_nav_A',
+                'down': ['button_nav_A'],
+                'normal': ["button_nav_B"]},
+            "screen_B":  {
+                "seq": 1,
+                'inst': 'button_nav_B',
+                'down': ['button_nav_B'],
+                'normal': ["button_nav_A"]}
+            }
+
+class NavBar(BoxLayout):
+    """=== Class name: NavBar ==========================================================================================
+    This Layout can be used across all screens. Class handles complications of now yet drawn instances.
+    It sets appearance for instances only appearing on screen.
+    ============================================================================================== by Sziller ==="""
+
+    @ staticmethod
+    def on_release_navbar(inst):
+        """=== Method name: on_toggle_navbar ===========================================================================
+        Method manages multiple screen selection by Toggle button set.
+        All Toggle Buttons call this same function. Their Class names are stored in the <buttons> list.
+        Only one button of the entire set is down at a given time. Function is extendable.
+        Once a given button is 'down', it becomes inactive, all other buttons are activated and set to "normal" state.
+        The reason of the logic is as follows:
+        Screen manager is the unit taking care of actual screen swaps, also it stores actually shown screen name.
+        However, at the itme of instantiation of the Screen Manager's ids are still not accessible.
+        So we refer to ScreenManager's id's only on user action.
+        :var inst: - the instance (button) activating the Method.
+        ========================================================================================== by Sziller ==="""
+        old_seq: int = 0
+        for k, v in App.get_running_app().root.statedict.items():
+            if k == App.get_running_app().root.current_screen.name:
+                old_seq = v["seq"]
+                break
+        new_seq = App.get_running_app().root.statedict[inst.target]["seq"]
+
+        App.get_running_app().change_screen(screen_name=inst.target, screen_direction={True: "left", False: "right"}
+        [old_seq - new_seq < 0])
+        for buttinst in App.get_running_app().root.current_screen.ids.navbar.ids:
+            print(buttinst)
+            if buttinst in App.get_running_app().root.statedict[inst.target]['normal']:
+                App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].disabled = False
+                App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].state = "normal"
+            if buttinst in App.get_running_app().root.statedict[inst.target]['down']:
+                App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].disabled = True
+                App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].state = "down"
 
 
 class AppObj(App):

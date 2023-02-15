@@ -24,7 +24,7 @@
 ## - Filelinks to be used globally:                                 -
 ## ------------------------------------------------------------------
 
-##:set background_image "./images/City_01WP.jpg"
+#:set default_image "./images/MinimalArt-CitySTRWP.jpg"
 #:set background_image "./images/RenderArt-StoneWallSTRWP.jpg"
 #:set defaultQR "./qrcodes/_QR_default.png"
 #:set phimage_link "./icons/caution.png"
@@ -52,10 +52,10 @@ AppObjScreenManager:
             pos: self.pos
             size: self.size
             source: background_image
-    ScreenText:
-        id: screen_text
-    ScreenDisp:
-        id: screen_disp
+    ScreenA:
+        id: screen_a
+    ScreenB:
+        id: screen_b
 
 
 <AppObjScreenManager@ScreenManager>:
@@ -72,3 +72,206 @@ AppObjScreenManager:
 ## Root Widget definition: ScreenManager                            ScreenManager       ENDED   -
 ## ----------------------------------------------------------------------------------------------
 
+<ScreenA@Screen>:
+    name: "screen_A"
+    InScreenWindow:
+        TitleLine:
+            id: screen_A_titleline
+            size_hint: 1, 0.1                   ##  0.1
+            display_title: "Screen A"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                   ##  0.1     < 0.20
+        OpAreaA:
+            size_hint: 1, 0.75                  ##  0.75    < 0.95
+            id: opareaA
+        Ribbon:
+            id: ribbon_A
+            size_hint: 1, 0.05                  ##  0.05    < 1
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenB@Screen>:
+    name: "screen_B"
+    InScreenWindow:
+        TitleLine:
+            id: screen_B_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "Screen B"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaB:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareaB
+        Ribbon:
+            id: ribbon_B
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+
+<InScreenWindow@BoxLayout>:
+    orientation: "vertical"
+
+<OperationAreaBox@BoxLayout>:
+    orientation: "vertical"
+
+<TitleLine@BoxLayout>:
+    display_title: "default"
+    orientation: "horizontal"
+    ScreenTitleLabel:
+        font_name: fn_title
+        font_size: fs_title
+        text: root.display_title
+
+<OpAreaA@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        LabelInfo:
+            id: labelinfo
+            size_hint: 1, 0.15
+            text: "Enter string to be converted into QR code"
+
+<OpAreaB@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 0.15
+            orientation: "horizontal"
+            Button:
+                id: browse_qr_prev
+                disabled: True
+                add: -1
+                size_hint: 0.05, 1
+                pos_hint: {"center_y": 0.5}
+                text: "<"
+                on_release: root.on_buttonclick_qr_browse(self)
+            LabelInfo:
+                id: labelinfo
+                size_hint: 0.9, 1
+                text: "Welcome to my little app. Scan QR code here,\nor modify your text."
+            Button:
+                id: browse_qr_next
+                disabled: True
+                add: 1
+                size_hint: 0.05, 1
+                pos_hint: {"center_y": 0.5}
+                text: ">"
+                on_release: root.on_buttonclick_qr_browse(self)
+        AsyncImage:
+            id: qr_plot_layout
+            size_hint: 1, 0.7
+            source: default_image
+
+<NavBar@BoxLayout>:
+    id: navbar
+    orientation: "horizontal"
+    size_hint: 1, 0.05
+    ButtonScreenNav:
+        id: button_nav_A
+        target: "screen_A"
+        disabled: True
+        text: "screen_A"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_B
+        target: "screen_B"
+        text: "screen_B"
+        on_release: root.on_release_navbar(self)
+
+<Ribbon@BoxLayout>:
+    text_ribbon: "by Sziller"
+    image_source: None
+    orientation: "horizontal"
+    LabelRibbon:
+        text: root.text_ribbon
+    AsyncImage:
+        keep_ratio: True
+        allow_stretch: False
+        size_hint: 0.05, 1
+        source: root.image_source
+
+#   ---------------------------------------------------------------------
+#   - Label:                                                    START   -
+#   ---------------------------------------------------------------------
+
+<ScreenTitleLabel@Label>:
+    font_size: fs_title
+    font_name: fn_title
+
+<LabelInfo@Label>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    color: 0, 0, 0, 1
+    font_size: fs_subsubtitle
+    font_name: fn_subsubtitle
+    text_size: self.size
+    halign: 'center'  ## center, right, left
+    valign: 'center'  ## middle, top, bottom
+
+<LabelRibbon@Label>:
+    halign: 'right'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+    font_name: fn_button
+    font_size: fs_button
+    size_hint: 0.95, 1
+    text_size: self.size
+    padding: (10, 0)
+
+<LabelPH@Label>:
+
+#   ---------------------------------------------------------------------
+#   - Label:                                                    ENDED   -
+#   ---------------------------------------------------------------------
+
+
+#   ---------------------------------------------------------------------
+#   - TextInput:                                                START   -
+#   ---------------------------------------------------------------------
+
+<TextInParagraph@TextInput>:
+    font_name: fn_data
+    font_size: fs_data
+    text_size: self.size
+    line_height: 40
+    focus: True
+    hint_text: "enter project name"
+    padding: (2, 2)
+    foreground_color: (1,1,1,1)
+    background_color: (1,1,1,0.2)
+    cursor_color: (1,1,1,1)
+    halign: 'left'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+
+#   ---------------------------------------------------------------------
+#   - TextInput:                                                ENDED   -
+#   ---------------------------------------------------------------------
+
+#   ---------------------------------------------------------------------
+#   - Button:                                                   START   -
+#   ---------------------------------------------------------------------
+
+<ButtonScreenNav@Button>:
+    font_name: fn_button
+    font_size: fs_button
+    background_color: 0.3, 0.4, 0.3, 0.45
+    target: ""
+    text_size: self.size
+    color: (1, 1, 1)
+    padding: (2, 2)
+    text: "ToggleButton"
+    halign: 'center'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+
+#   ---------------------------------------------------------------------
+#   - Button:                                                   ENDED   -
+#   ---------------------------------------------------------------------
