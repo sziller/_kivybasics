@@ -82,9 +82,11 @@ class AppObj(App):
     def __init__(self,
                  window_content: str,
                  app_title: str = "Sziller's App",
+                 app_icon: str = "./icon.png",
                  csm: float = 1.0):
         super(AppObj, self).__init__()
         self.title                      = app_title
+        self.icon                       = app_icon
         self.window_content             = window_content
         self.content_size_multiplier    = csm
         self.external_var: list         = []
@@ -131,10 +133,12 @@ if __name__ == "__main__":
         content = Builder.load_file("app_name.kv")
 
     application_title_in_window_head    = "MyDefaultApp"
+    application_window_icon = "./icons/caution.png"
     content_size_multiplier             = 1
 
     application = AppObj(window_content=content,
                          app_title=application_title_in_window_head,
+                         app_icon=application_window_icon,
                          csm=content_size_multiplier)
 
     data_from_app = application.external_var
