@@ -33,6 +33,7 @@ class AppObjScreenManager(ScreenManager):
                 'normal': ["button_nav_A", 'button_nav_B', 'button_nav_C']}
             }
 
+
 class NavBar(BoxLayout):
     """=== Class name: NavBar ==========================================================================================
     This Layout can be used across all screens. Class handles complications of now yet drawn instances.

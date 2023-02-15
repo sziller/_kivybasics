@@ -66,13 +66,13 @@ AppObjScreenManager:
 
 <AppObjScreenManager@ScreenManager>:
     ## transition: NoTransition()
-    transition: CardTransition(direction="right", duration=0.05)
-    ## transition: FadeTransition(duration=0.1)
+    ## transition: CardTransition(direction="right", duration=0.1)
+    ## transition: FadeTransition(duration=0.3)  # elegant fade
     ## transition: FallOutTransition(duration=0.05)    # opposites v
     ## transition: RiseInTransition(duration=0.08)     # opposites ^
-    ## transition: SlideTransition()
+    transition: SlideTransition()
     ## transition: SwapTransition(duration=.5)
-    ## transition: WipeTransition()
+    ## transition: WipeTransition(duration=1)
 
 ## ----------------------------------------------------------------------------------------------
 ## Root Widget definition: ScreenManager                            ScreenManager       ENDED   -
