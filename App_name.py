@@ -36,7 +36,7 @@ class AppObjScreenManager(ScreenManager):
 
 class NavBar(BoxLayout):
     """=== Class name: NavBar ==========================================================================================
-    This Layout can be used across all screens. Class handles complications of now yet drawn instances.
+    This Layout can be used across all screens. Class handles complications of not-yet-drawn instances.
     It sets appearance for instances only appearing on screen.
     ============================================================================================== by Sziller ==="""
 
@@ -63,7 +63,6 @@ class NavBar(BoxLayout):
         App.get_running_app().change_screen(screen_name=inst.target, screen_direction={True: "left", False: "right"}
         [old_seq - new_seq < 0])
         for buttinst in App.get_running_app().root.current_screen.ids.navbar.ids:
-            print(buttinst)
             if buttinst in App.get_running_app().root.statedict[inst.target]['normal']:
                 App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].disabled = False
                 App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].state = "normal"
